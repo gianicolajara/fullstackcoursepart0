@@ -1,0 +1,39 @@
+browser -> server: HTTP POST 302 https://studies.cs.helsinki.fi/exampleapp/new_note
+server -> browser: HTML
+
+Send my comment: "hola" to express and redirect
+
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/exampleapp/notes
+server -> browser: HTML
+
+Get the HTML code
+
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/exampleapp/main.css
+server -> browser: main.css
+
+Get the CSS code
+
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/exampleapp/main.js
+server -> browser: main.js
+
+Get the JS code
+
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/exampleapp/data.json
+server -> browser: data.json
+
+Get all comments with my comment from the database: {content: 'hola', date: '2022-01-12T06:30:54.269Z'} and javascript starts 
+doing the process to insert it into the view
+
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/favicon.ico
+server -> browser: HTML
+
+Get html code with this: 
+
+<html>
+    <head>
+    </head>
+    <body>
+        <a href="/stats">Course stats</a>
+    </body>
+</html>
+

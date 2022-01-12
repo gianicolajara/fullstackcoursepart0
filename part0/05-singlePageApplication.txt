@@ -1,0 +1,24 @@
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/exampleapp/spa
+server -> browser: HTML
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/exampleapp/main.css
+server -> browser: main.css
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/exampleapp/spa.js
+server -> browser: spa.js
+browser -> server: HTTP get 200 https://studies.cs.helsinki.fi/exampleapp/data.json
+server -> browser: data.json
+
+Get all comments in json format thanks to the header content-type application/json; charset=utf-8 and javascript starts 
+doing the process to insert it into the view
+
+browser -> server: HTTP GET 200 https://studies.cs.helsinki.fi/favicon.ico
+server -> browser: HTML
+
+Get html code with this: 
+
+<html>
+    <head>
+    </head>
+    <body>
+        <a href="/stats">Course stats</a>
+    </body>
+</html>

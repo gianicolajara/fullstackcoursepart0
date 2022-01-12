@@ -1,0 +1,6 @@
+browser -> server: HTTP POST 201 https://studies.cs.helsinki.fi/exampleapp/new_note_spa 
+server -> browser: {"message":"note created"} (json) // application/json; charset=utf-8
+
+201: "created"
+
+javascript creates the note by means of a push
