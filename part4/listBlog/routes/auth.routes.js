@@ -13,7 +13,7 @@ authRoutes.post(
   authController.signup,
 )
 
-authRoutes.get(
+authRoutes.post(
   '/signin',
   [
     ...userValidators.signinValidation,
