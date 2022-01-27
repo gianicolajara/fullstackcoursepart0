@@ -1,4 +1,5 @@
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 const getAllBlogs = async (req, res) => {
@@ -20,8 +21,13 @@ const createNewBlog = async (req, res) => {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
 
-  const newBlog = new Blog({ ...body, user: [decodedToken.id] })
+  const { id } = decodedToken
+
+  const newBlog = new Blog({ ...body, user: [id] })
+
   const request = await newBlog.save()
+
+  await User.findByIdAndUpdate(id, { $push: { blogs: request.id } })
 
   if (request) res.status(200).json(request)
 }
@@ -58,8 +64,6 @@ const updateBlogById = async (req, res) => {
 
   const token = req.token
 
-  console.log(token)
-
   const decodedToken = jwt.verify(token, process.env.SECRET)
 
   if (!token || !decodedToken.id) {
@@ -67,8 +71,6 @@ const updateBlogById = async (req, res) => {
   }
 
   let getBlog = await Blog.findById(idBlogToUpdate)
-
-  console.log(getBlog)
 
   const resBlogUpdate = await Blog.findByIdAndUpdate(
     idBlogToUpdate,
