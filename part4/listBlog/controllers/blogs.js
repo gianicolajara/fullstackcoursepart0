@@ -70,11 +70,9 @@ const updateBlogById = async (req, res) => {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
 
-  let getBlog = await Blog.findById(idBlogToUpdate)
-
   const resBlogUpdate = await Blog.findByIdAndUpdate(
     idBlogToUpdate,
-    { ...bodyToUpdate, likes: getBlog.likes + 1 },
+    bodyToUpdate,
     {
       new: true,
       runValidators: true,
