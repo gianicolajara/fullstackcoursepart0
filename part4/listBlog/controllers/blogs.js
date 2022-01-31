@@ -25,16 +25,26 @@ const createNewBlog = async (req, res) => {
 
   const newBlog = new Blog({ ...body, user: [id] })
 
-  const request = await newBlog.save()
+  const requestBlog = await newBlog.save()
 
-  await User.findByIdAndUpdate(id, { $push: { blogs: request.id } })
+  const requestUser = await User.findByIdAndUpdate(
+    id,
+    { $push: { blogs: requestBlog._id } },
+    { new: true, fields: ['id', 'name', 'username'] },
+  )
 
-  if (request) res.status(200).json(request)
+  if (requestBlog && requestUser)
+    res
+      .status(200)
+      .json({ ...requestBlog.toJSON(), user: [{ ...requestUser.toJSON() }] })
 }
 
 const deleteBlogById = async (req, res) => {
   const idBlogToDelete = req.params.id
   const token = req.token
+
+  console.log('id blog to delete', idBlogToDelete)
+  console.log('token', token)
 
   const decodedToken = jwt.verify(token, process.env.SECRET)
 
@@ -45,15 +55,23 @@ const deleteBlogById = async (req, res) => {
   const searchBlog = await Blog.findById(idBlogToDelete)
 
   if (searchBlog) {
-    if (searchBlog.user.toString() === decodedToken.id.toString()) {
-      const request = await Blog.findByIdAndDelete(idBlogToDelete)
-      if (request) return res.status(204).end()
+    if (searchBlog.user[0].toString() === decodedToken.id.toString()) {
+      await Blog.findByIdAndDelete(idBlogToDelete)
+
+      const requestUser = await User.findByIdAndUpdate(searchBlog.user[0], {
+        $pull: { blogs: { $in: idBlogToDelete } },
+      })
+
+      if (requestUser) {
+        return res.status(204).end()
+      }
     } else {
       return res
         .status(401)
         .json({ error: 'user not allowed to delete this blog' })
     }
   } else {
+    console.log('hola 9')
     res.status(404).end()
   }
 }

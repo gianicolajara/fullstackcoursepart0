@@ -36,6 +36,12 @@ app.use(morgan('dev'))
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/blogs', blogRoutes)
+
+if (process.env.NODE_ENV === 'test') {
+  const testRoutes = require('./routes/test.routes')
+  app.use('/api/testing', testRoutes)
+}
+
 app.use(middlewares.handleError)
 app.use(middlewares.unknownEndpoint)
 
