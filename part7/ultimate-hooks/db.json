@@ -1,0 +1,50 @@
+{
+  "notes": [
+    {
+      "content": "custom-hookit aivan mahtavia",
+      "id": 1
+    },
+    {
+      "content": "paras feature ikinä <3",
+      "id": 2
+    },
+    {
+      "content": "hi it's a note",
+      "id": 3
+    },
+    {
+      "content": "hi it's a note number 2",
+      "id": 4
+    },
+    {
+      "content": "hi its a note number 3",
+      "id": 5
+    },
+    {
+      "content": "asdsa",
+      "id": 6
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "gianicola",
+      "number": "99999999",
+      "id": 2
+    },
+    {
+      "name": "pedro",
+      "number": "999999999",
+      "id": 3
+    },
+    {
+      "name": "test",
+      "number": "9999999",
+      "id": 4
+    }
+  ]
+}
