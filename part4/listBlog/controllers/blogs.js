@@ -105,9 +105,40 @@ const updateBlogById = async (req, res) => {
   }
 }
 
+const getBlogById = async (req, res) => {
+  const id = req.params.id
+
+  const requestBlog = await Blog.findById(id).populate('user')
+
+  if (requestBlog) {
+    res.status(200).json(requestBlog)
+  } else {
+    res.status(404).end()
+  }
+}
+
+const addComment = async (req, res) => {
+  const id = req.params.id
+  const body = req.body.comment
+
+  const request = await Blog.findByIdAndUpdate(
+    id,
+    {
+      $push: { comments: body },
+    },
+    { new: true },
+  )
+
+  if (request) {
+    res.status(201).json(request)
+  }
+}
+
 module.exports = {
   getAllBlogs,
   createNewBlog,
   deleteBlogById,
   updateBlogById,
+  getBlogById,
+  addComment,
 }
